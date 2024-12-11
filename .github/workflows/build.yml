@@ -25,10 +25,7 @@ jobs:
 
     - name: Configure Limits
       run: |
-        sudo ulimit -Sn 65536
-        sudo prlimit --pid $$ --nofile=1048576:1048576
-        sudo sysctl fs.inotify.max_user_instances=1280
-        sudo sysctl fs.inotify.max_user_watches=655360
+        echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
     # Step 4: Upload build artifacts
     - name: Upload Executables
