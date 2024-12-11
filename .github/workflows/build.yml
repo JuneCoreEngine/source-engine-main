@@ -31,4 +31,4 @@ jobs:
       with:
         name: executables
         path: |
-          out/*    # Replace 'build/*' with the actual path to your executables (hopefully)
+          build/*
