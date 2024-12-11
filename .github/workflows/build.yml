@@ -7,9 +7,28 @@ jobs:
     runs-on: windows-2019
 
     steps:
+    # Step 1: Checkout the code
     - uses: actions/checkout@v2
+
+    # Step 2: Install dependencies (if required)
+    - name: Install dependencies
+      run: |
+        # Install necessary tools or dependencies here
+        choco install -y python3  # Example: Install Python if your waf script requires it
+        python --version
+        pip install --upgrade pip
+
+    # Step 3: Build the project
     - name: Build windows-amd64
       run: |
         git submodule init && git submodule update
         ./waf.bat configure -T debug -8
         ./waf.bat build
+
+    # Step 4: Upload build artifacts
+    - name: Upload Executables
+      uses: actions/upload-artifact@v3
+      with:
+        name: executables
+        path: |
+          out/*    # Replace 'build/*' with the actual path to your executables
