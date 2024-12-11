@@ -23,9 +23,9 @@ jobs:
         ./waf.bat configure -T debug -8
         ./waf.bat build
 
-    - name: Configure Limits
+    - name: Debug
       run: |
-        echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+        ls build
 
     # Step 4: Upload build artifacts
     - name: Upload Executables
@@ -33,4 +33,6 @@ jobs:
       with:
         name: executables
         path: |
-          build/*
+          build/**/*.exe
+          build/**/*.dll
+          build/**/*.bat
